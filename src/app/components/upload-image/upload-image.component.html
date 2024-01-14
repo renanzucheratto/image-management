@@ -1,1 +1,61 @@
-<p>upload-image works!</p>
+<div class="card p-4">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="preview-image d-flex justify-content-center align-items-center h-100 rounded">
+        <div (click)="file.click()" class="selecione-imagem h-100 w-100 d-flex justify-content-center align-items-center" *ngIf="!uploadImageForm.value.image">
+          <p>Selecione uma imagem</p>
+        </div>
+        <img [src]="uploadImageForm.value.image" class="img-fluid" *ngIf="uploadImageForm.value.image" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <form (ngSubmit)="handleFormSubmit()" [formGroup]="uploadImageForm" #formDir="ngForm">
+        <div class="mb-3">
+          <label for="titulo" class="fw-bold">Preço</label>
+          <input type="text" [ngClass]="displayFieldCss('price')" id="titulo" formControlName="price" placeholder="Inserir preço" />
+          <span *ngIf="isFieldValid('price') && !uploadImageForm.get('price')?.hasError('isNumberInvalid')" class="invalid-feedback d-block">Campo obrigatório</span>
+          <span *ngIf="uploadImageForm.get('price')?.hasError('isNumberInvalid')" class="invalid-feedback d-block">{{uploadImageForm.get('price')?.getError('message')}}</span>
+        </div>
+        <div class="mb-3">
+          <label for="title" class="fw-bold">Título</label>
+          <input type="text" class="form-control" id="title" formControlName="title" placeholder="Inserir nome original do ficheiro" />
+          <span *ngIf="isFieldValid('title')"  class="invalid-feedback d-block">Campo obrigatório</span>
+        </div>
+        <div class="mb-3">
+          <label for="descricao" class="fw-bold">Descrição</label>
+          <textarea type="text" class="form-control" id="descricao" formControlName="description"  placeholder="Inserir descrição de ficheiro"></textarea>
+          <span *ngIf="isFieldValid('description')" class="invalid-feedback d-block">Campo obrigatório</span>
+        </div>
+        <div class="mb-3">
+          <label for="keywords" class="fw-bold">Palavra-chave</label>
+          <input type="text" [ngClass]="displayFieldCss('keywords')" formControlName="keywords" id="keywords" placeholder="Inserir Tags" />
+          <span *ngIf="isFieldValid('keywords') && !uploadImageForm.get('keywords')?.hasError('tagsInvalid')" class="invalid-feedback d-block">Campo obrigatório</span>
+          <span *ngIf="uploadImageForm.get('keywords')?.hasError('tagsInvalid')" class="invalid-feedback d-block">{{ uploadImageForm.get('keywords')?.getError('message') }}</span>
+        </div>
+        <div class="mb-3">
+          <label for="nomeDoFicheiro" class="fw-bold">Nome do ficheiro</label>
+          <input type="text" class="form-control" readonly formControlName="fileName" id="nomeDoFicheiro" />
+        </div>
+        <div class="mb-3">
+          <label for="imagem" class="fw-bold border p-2 pointer" role="button">Selecione uma imagem</label>
+          <input type="file" #file accept="image/*" class="d-none" id="imagem" (change)="onFileSelected($event)" />
+        </div>
+        <div class="mb-3">
+          <p class="mb-0">Data de Upload</p>
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="dd/mm/yyyy"
+              formControlName="createdAt"
+              ngbDatepicker
+              #d="ngbDatepicker"
+            />
+            <button #buttonEl class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">Selecione uma data</button>
+          </div>
+        </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="uploadImageForm.invalid">Salvar</button>
+      </form>
+    </div>
+  </div>
+</div>

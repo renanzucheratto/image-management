@@ -1,0 +1,27 @@
+<div *ngIf="imagesList.length" class="row g-4">
+  <div class="col-12 mb-2">
+    <div class="left">
+      <form [formGroup]="searchForm">
+        <label for="search">Filtrar</label>
+        <input type="text" id="search" formControlName="search" class="form-control">
+      </form>
+    </div>
+  </div>
+  <div class="col-12 row g-4">
+    <div class="col-12 col-sm-4" *ngFor="let image of filteredImagesList">
+      <app-card-image
+        [fileTitle]="image.title"
+        [src]="image.file.base64"
+        [keywords]="image.keywords"
+        [id]="image.id!"
+        [price]="image.price"
+        [description]="image.description"
+        [createdAt]="image.createdAt"
+      />
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!imagesList.length" class="mt-3">
+  Você ainda não fez o upload de nenhum ficheiro.
+</div>

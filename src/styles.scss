@@ -2,3 +2,14 @@
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toast-position {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}

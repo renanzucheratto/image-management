@@ -1,0 +1,26 @@
+<div class="card">
+  <i class="close-icon" (click)="removeImage(id)"></i>
+  <div class="box-image bg-body-tertiary d-flex justify-content-center overflow-hidden">
+    <div class="createdAt">{{createdAt}}</div>
+    <img [src]="src" />
+  </div>
+  <div class="p-3 informations">
+    <div class="row align-items-center">
+      <div class="col col-sm-8">
+        <h5 class="fw-bold">{{fileTitle}}</h5>
+      </div>
+      <div class="col col-sm-4 text-end">
+        <p class="m-0">{{formatPrice(price)}}</p>
+      </div>
+    </div>
+    <p class="description mt-3 mb-4">{{description}}</p>
+    <ul class="d-flex gap-2">
+      <li
+        class="bg-body-secondary px-2 py-1 rounded"
+        *ngFor="let keyword of keywords"
+      >
+        {{keyword.label}}
+      </li>
+    </ul>
+  </div>
+</div>
